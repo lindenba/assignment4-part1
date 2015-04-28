@@ -1,17 +1,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Login </title>
-</head>
+<header>
+  <title>Login</title>
+</header>
 <body>
 
-<?php>
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-header('Content-Type: text/plain');
+<?php
 session_start();
-if(isset($_GET['loggedOut']) && $_GET['loggedOut'] == true){
+if(isset($_GET['logout']) && $_GET['logout'] == true){
 $_SESSION = array();
 session_destroy();
 }
@@ -21,5 +18,6 @@ session_destroy();
 Username <input type="text" name="username"/>
 <input type="submit" name="submit" value="login"/>
 </form>
-</body>
+  </body>
+
 </html>
