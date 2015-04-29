@@ -3,22 +3,29 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
-if(!isset($_Post['username']) || isset($_Post['username'])==null)
+
+  if(($_POST['username']) == "" || ($_POST['username']) == null)
   {
-    if (!isset($_SESSION['login'])){
+    $_SESSION = array();
+    session_destroy();
     echo "Username must be entered. Click <a href = 'login.php'>here</a> to return to the login screen.";
-    $_SESSION['login'] == false;
   }
+  else
+  {
+    if(!isset($_SESSION['visits']) || $_SESSION['username'] != $_POST['username'])
+    {
+      $_SESSION['visits'] = 0;
+    }
+
+    $_SESSION['username'] = $_POST['username'];
+
+    echo "Hello $_SESSION[username], you have visited this page $_SESSION[visits] times before.";
+
+    $_SESSION['visits']++;
+
+    echo "Click <a href='content2.php'>here</a> to go to content2.php page.";
+    echo "Click <a href='login.php?logout=end'>here</a> to logout.";
   }
 
-$_SESSION['login'] = 0;
 
-if(!isset($_SESSION['visits']))
-{
-  $_SESSION['visits'] = 0;
-}
-
-  echo "Hello $_SESSION[username], have visited this page $_SESSION[visits] times before.
-  Click <a href='login.php'>here</a> to logout.";
-  echo "Click <a href='content2.php'>here</a> to go to content2.php page.";
-  $_SESSION['visits']++;
+?>
