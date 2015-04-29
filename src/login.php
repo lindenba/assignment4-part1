@@ -15,7 +15,7 @@ session_destroy();
 }
 ?>
 <h2>Login</h2>
-<form action="content1.php" method="post">
+<form action="content1.php" method="POST">
 Username <input type="text" name="username"/>
 <input type="submit" name="submit" value="login"/>
 </form>
