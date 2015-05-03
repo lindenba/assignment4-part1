@@ -10,102 +10,100 @@ ini_set('display_errors', 1);
 		</head>
 	<body>
     <form action="multtable.php" method="GET">
-    </body>
-  </html>
+
   <?php
+$min_multiplicand = $_GET["min_multiplicand"];
+$max_multiplicand = $_GET["max_multiplicand"];
+$min_multiplier = $_GET["min_multiplier"];
+$max_multiplier = $_GET["max_multiplier"];
+
   //check if input is acceptable
-  $input=false;
-  if(isset($_GET['min-multiplicand']))
+  $input=true;
+  //parameters are there
+  if(empty($_GET['min_multiplicand']) == true)
     {
-    $min_multiplicand = $_GET['min_multiplicand'];
-    }
-  else
-    {
-    echo "Missing parameter min_multiplicand";
+    echo "Missing parameter min_multiplicand<br>";
     $input=false;
     }
 
-  if(isset($_GET['max-multiplicand']))
+  if(empty($_GET['max_multiplicand']) == true)
     {
-      $max_multiplicand = $_GET['max_multiplicand'];
-    }
-  else
-    {
-      echo "Missing parameter max_multiplicand";
+      echo "Missing parameter max_multiplicand<br>";
       $input=false;
     }
 
-  if(isset($_GET['min-multiplier']))
+  if(empty($_GET['min_multiplier']) == true)
     {
-        $min_multiplier = $_GET['min_multiplier'];
-    }
-  else
-    {
-        echo "Missing parameter min_multiplier";
+        echo "Missing parameter min_multiplier<br>";
         $input=false;
     }
 
-  if(isset($_GET['max-multiplier']))
+  if(empty($_GET['max_multiplier']) == true)
     {
-          $max_multiplier = $_GET['max_multiplier'];
-    }
-  else
-    {
-          echo "Missing parameter max_multiplier";
+          echo "Missing parameter max_multiplier<br>";
           $input=false;
     }
 
+//parameters are an integer
   if(!ctype_digit($min_multiplicand))
   {
-    echo "Min-multiplicand must be an integer";
+    echo "Min-multiplicand must be an integer<br>";
     $input=false;
   }
   if(!ctype_digit($max_multiplicand))
   {
-    echo "Max-multiplicand must be an integer";
+    echo "Max-multiplicand must be an integer<br>";
     $input=false;
   }
   if(!ctype_digit($min_multiplier))
   {
-    echo "Min-multiplier must be an integer";
+    echo "Min-multiplier must be an integer<br>";
     $input=false;
   }
   if(!ctype_digit($max_multiplier))
   {
-    echo "Max-multiplier must be an integer";
+    echo "Max-multiplier must be an integer<br>";
     $input=false;
   }
-
+  if($input == false)
+  {
+    exit();
+  }
+// min is less than the max
   if($min_multiplicand > $max_multiplicand)
   {
-    echo "Min-multiplicand is larger than max-multiplicand";
-    $input=fals;
+    echo "Min-multiplicand is larger than max-multiplicand<br>";
+  //  exit();
   }
 
   if($min_multiplier > $max_multiplier)
   {
-    echo "Min-multiplier is larger than max-multiplier";
-    $input=fals;
+    echo "Min-multiplier is larger than max-multiplier<br>";
+  //  exit();
   }
 
-  if($input==true)
-  {
-    $wide = $max_multiplier - $min_multiplier + 2;
-    $tall = $max_multiplicand - $min_multiplicand + 2;
 
-    echo "<table> <thead> <tr> <td></td>";
-    for($x=0; $x<$wide; $x++)
+
+//table display
+    echo "<table border='1'> <thead> <tr> <th></th>";
+    for($x=$min_multiplicand; $x<=$max_multiplicand; $x++)
     {
       echo "<th>$x</th>";
     }
-    echo "</thead> <tbody> <td>";
-      for($y=0; $y<tall; $y++)
+    echo "</tr> </thead> <tbody>";
+      for($y=$min_multiplier; $y<=$max_multiplier; $y++)
+      {
+        echo "<td>$y</td>";
+
+      for($z=$min_multiplicand; $z<=$max_multiplicand; $z++)
       {
         echo "<td>";
-        echo $x*$y;
+        echo $z*$y;
         echo "</td>";
       }
-      echo "</table>";
-
-  }
+      echo "</tbody>";
+}
+echo "</table>";
   ?>
+</body>
+</html>
